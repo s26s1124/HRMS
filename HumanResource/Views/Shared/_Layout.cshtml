@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HumanResource</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HumanResource.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Load Material Icons from Google Fonts-->
+    <link href="~/css/material&icons.css" rel="stylesheet" />  
+    <!-- Load Simple DataTables Stylesheet-->
+    <link href="~/css/datatables.css" rel="stylesheet" />
+    <link href="~/css/all.min.css" rel="stylesheet" />
+    
+</head>
+  <body class="nav-fixed bg-light">
+        <!-- Top app bar navigation menu-->
+        <nav class="top-app-bar navbar navbar-expand navbar-dark bg-dark">
+            <div class="container-fluid px-4">
+                <!-- Drawer toggle button-->
+                <button class="btn btn-lg btn-icon order-1 order-lg-0" id="drawerToggle" href="javascript:void(0);"><i class="material-icons">menu</i></button>
+                  
+                <!-- Navbar items-->
+                <div class="d-flex align-items-center mx-3 me-lg-0">
+                    <!-- Navbar-->
+                    <!-- Navbar buttons-->
+                    <div class="d-flex">
+   
+                        <!-- User profile dropdown-->
+                        <div class="dropdown">
+                            <button class="btn btn-lg btn-icon dropdown-toggle" id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="material-icons">person</i></button>
+                            <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="dropdownMenuProfile">
+                                       <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                                        <i class="material-icons leading-icon">logout</i>
+                                        <div class="me-3">Logout</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Layout wrapper-->
+        <div id="layoutDrawer">
+            <!-- Layout navigation-->
+            <div id="layoutDrawer_nav">
+        @*@Html.RenderPartialAsync("NavigationMenu", "Account")*@
+
+            @await Component.InvokeAsync("NavMenu")
+    </div>
+            <!-- Layout content-->
+            <div id="layoutDrawer_content">
+                <!-- Main page content-->
+                <main>
+                    <!-- Main dashboard content-->
+                <div class="container-xl">
+
+                    @RenderBody()
+
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    <!-- Modal --> @*tabindex="-5" aria-labelledby="exampleModalLabel" aria-hidden="true"*@
+    <div class="modal fade" id="form-modal"  role="dialog" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="loaderbody" id="loaderbody">
+        <div class="loader"></div>
+    </div>
+
+
+    <!--  Load Chart.js via CDN-->
+    <script src="~/js/chart.js"></script>
+  
+    <script src="~/js/charts/chart-defaults.js"></script>
+    <!--  Load chart demos for this page-->
+    <script src="~/js/charts/demos/chart-pie-demo.js"></script>
+    <script src="~/js/charts/demos/dashboard-chart-bar-grouped-demo.js"></script>
+  
+    <!-- Load Simple DataTables Scripts-->
+    <script src="~/js/datatables/datatables-simple-demo.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  
+
+    <script src="~/js/jquery-ui.js" ntegrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+  
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

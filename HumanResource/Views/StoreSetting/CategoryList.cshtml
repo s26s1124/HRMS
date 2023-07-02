@@ -1,0 +1,63 @@
+﻿@model IEnumerable<HumanResource.Models.HRMS.StrCategoryCode>
+
+@{
+    ViewData["Title"] = "Category";
+   
+}
+
+<div id="view-all">
+    <div class="card card-raised">
+        <div class="card-header bg-primary text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">categories</h2>
+                    <div class="card-subtitle">Details and history</div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-lg btn-text-white btn-icon" type="button"><i class="material-icons">download</i></button>
+                    <button class="btn btn-lg btn-text-white btn-icon" type="button"><i class="material-icons">print</i></button>
+                </div>
+            </div>
+        </div>
+     <div class="card-body p-4">
+<table class="table table-bordered table-hover mb-0">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+       
+            <th scope="col">
+                            <a onclick="showInPopup('@Url.Action("CategoryAddOrEdit","StoreSetting", null, Context.Request.Scheme)','New Transaction')" class="btn btn-success text-white"><i class="fas fa-random"></i>  New Transaction</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+   
+            <td>
+              <div>
+        <a onclick="showInPopup('@Url.Action("CategoryAddOrEdit","StoreSetting",new {id=item.CategoryCode},Context.Request.Scheme)','Update Transaction')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                <form asp-action="CategoryDeleteConfirmed" asp-route-id="@item.CategoryCode" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                    <input type="hidden" asp-for="@item.CategoryCode" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                 </form>
+              </div>
+          </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+    </div>
+
+</div>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

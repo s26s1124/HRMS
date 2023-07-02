@@ -1,0 +1,56 @@
+﻿@model HumanResource.Models.UserLogin
+@{
+    Layout = "_HomeLayout";
+}
+
+
+  <!-- Main content container-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-4 col-xl-5 col-lg-6 col-md-8">
+            <div class="card card-raised shadow-10 mt-5 mt-xl-10 mb-4">
+                <div class="card-body p-5">
+                    <!-- Auth header with logo image-->
+                    <div class="text-center">
+                        <img class="mb-3" src="~/img/gsclogo.png" alt="GSC Logo" style="height:132px" />
+                        
+                        <h3 class="display-9 mb-0">Login</h3>
+                        <div class="subheading-1 mb-5">to continue to app</div>
+                    </div>
+                    <!-- Login submission form-->
+                    <form asp-action="Login" asp-controller="Account">
+
+
+                        <div class="row">
+                           
+                                <div class="form-group">
+                                    <label asp-for="UserName" class="control-label"></label>
+                                    <input asp-for="UserName" class="form-control" outlined />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                           
+                       
+                        </div>
+                        <div class="row">
+                           
+                                <div class="form-group">
+                                    <label asp-for="Password" class="control-label"></label>
+                                    <input asp-for="Password" class="form-control" outlined icontrailing="visibility_off" type="password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <mwc-formfield label="Remember password"><mwc-checkbox></mwc-checkbox></mwc-formfield>
+                                </div>
+
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <input type="submit" value="Login" class="btn btn-primary btn-block" />
+                        </div>
+                  
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

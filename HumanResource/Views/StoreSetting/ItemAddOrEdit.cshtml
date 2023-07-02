@@ -1,0 +1,88 @@
+﻿@model HumanResource.Models.HRMS.StrItemCode
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form asp-action="ItemAddOrEdit" asp-route-id="@Model.ItemCode" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label"></label>
+                <input asp-for="ItemName" class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDesc" class="control-label"></label>
+                <textarea asp-for="ItemDesc" class="form-control"></textarea>
+                <span asp-validation-for="ItemDesc" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label asp-for="ItemBrand" class="control-label"></label>
+                    <input asp-for="ItemBrand" class="form-control" />
+                    <span asp-validation-for="ItemBrand" class="text-danger"></span>
+                   </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ItemModel" class="control-label"></label>
+                        <input asp-for="ItemModel" class="form-control" />
+                        <span asp-validation-for="ItemModel" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CategoryCode" class="control-label"></label>
+
+                        <select class="form-control" asp-for="CategoryCode" asp-items="@ViewBag.ListofCategory"></select>
+                        <span asp-validation-for="CategoryCode" class="text-danger"></span>
+
+
+                      
+                    </div>
+                </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="NoToReq" class="control-label"></label>
+                            <input asp-for="NoToReq" class="form-control" />
+                            <span asp-validation-for="NoToReq" class="text-danger"></span>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MaxQau" class="control-label"></label>
+                        <input asp-for="MaxQau" class="form-control" />
+                        <span asp-validation-for="MaxQau" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="MinQau" class="control-label"></label>
+                        <input asp-for="MinQau" class="form-control" />
+                        <span asp-validation-for="MinQau" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+          
+           
+            <div class="form-group mt-3 w-100">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

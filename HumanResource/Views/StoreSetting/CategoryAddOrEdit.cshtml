@@ -1,0 +1,26 @@
+﻿@model HumanResource.Models.HRMS.StrCategoryCode
+@{
+    Layout = null;
+}
+
+    <div class="row gx-5">
+    <div class="col-md-12">
+     
+        <form asp-action="CategoryAddOrEdit" asp-route-id="@Model.CategoryCode" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              <input type="hidden" asp-for="CategoryCode" value="@Model.CategoryCode" />
+                <input type="hidden" asp-for="CategoryDeactivated" value="0" />
+
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="control-label"></label>
+                    <input asp-for="CategoryName" class="form-control" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+            </div>
+            </form>
+        </div>
+    </div>
+

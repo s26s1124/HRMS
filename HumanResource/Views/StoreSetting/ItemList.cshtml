@@ -1,0 +1,104 @@
+﻿@model IEnumerable<HumanResource.Models.HRMS.StrItemCode>
+
+@{
+    ViewData["Title"] = "Item";
+
+}
+
+
+<div id="view-all">
+    <div class="card card-raised">
+        <div class="card-header bg-primary text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">Item list</h2>
+                    <div class="card-subtitle">Details and history</div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-lg btn-text-white btn-icon" type="button"><i class="material-icons">download</i></button>
+                    <button class="btn btn-lg btn-text-white btn-icon" type="button"><i class="material-icons">print</i></button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+    <table class="table table-bordered table-hover mb-0">
+    <thead>
+            <tr class="table-primary">
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.ItemDesc)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.ItemBrand)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.ItemModel)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.CategoryCode)
+            </th>
+      
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.TotalQuaAva)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.MaxQau)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.MinQau)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.NoToReq)
+            </th>
+                <th scope="col">
+                            <a onclick="showInPopup('@Url.Action("ItemAddOrEdit","StoreSetting", null, Context.Request.Scheme)','New Transaction')" class="btn btn-success text-white"><i class="fas fa-random"></i>  New Transaction</a>
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemBrand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryCode)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalQuaAva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxQau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinQau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoToReq)
+            </td>
+            <td>
+                                <a onclick="showInPopup('@Url.Action("ItemAddOrEdit","StoreSetting",new {id=item.ItemCode},Context.Request.Scheme)','Update Transaction')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+                        <form asp-action="ItemDeleteConfirmed" asp-route-id="@item.ItemCode" onsubmit="return jQueryAjaxDelete(this)" class="d-inline">
+                        <input type="hidden" asp-for="@item.ItemCode" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                     </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+    </div>
+</div>

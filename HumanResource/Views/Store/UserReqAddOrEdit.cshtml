@@ -1,0 +1,114 @@
+﻿@model HumanResource.Models.HRMS.StrReqMstr
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="UserReqAddOrEdit" id="ApplicationForm" asp-route-id="@Model.ReqNo">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReqNo" />            
+                <div class="card card-raised border-top border-4 border-primary h-100">                
+                    <div class="card-body p-5">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="EmpNo" class="control-label"></label>
+                                <input asp-for="EmpNo" value="@ViewBag.EmpNo" class="form-control" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label">Employee Name</label>
+                                <input type="text" value="@ViewBag.EmpNameA" class="form-control" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                </div>
+            <div class="row p-4">
+            </div>
+            <div class="card card-raised border-top border-4 border-primary h-100">
+                <div class="card-header bg-transparent px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="me-4">
+                            <h2 class="card-title mb-0">Order details</h2>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body p-5">
+                    <div class="row">
+                        <table id="RequestDetailsTable" class="table table-striped table-bordered bulk_actionv CodeTable">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">CategoryCode </th>
+                                    <th scope="col">ItemCode</th>
+                                    <th scope="col">ItemQuantity</th>
+                                    <th scope="col"> ItemRemar </th>
+                                    <th> <button id="AddCategory" type="button" class="btn btn-primary" onclick="AddItem(this)">Add</button></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (var i = 0; i < Model.StrRequestDetails.Count; i++)
+                                {
+
+                                    <tr>
+
+                                        <td>
+                                            @Html.HiddenFor(m => m.StrRequestDetails[i].IsDeleted , new{@id="IsDeleted-"+i})
+                                            @Html.DropDownListFor(m => m.StrRequestDetails[i].CategoryCode, (IEnumerable<SelectListItem>)ViewBag.ListofCategory,
+                                        new {@class="form-control", @id="lstCategoryCtrl-"+i, @onchange="FillItems(this,'lstItemId-"+i+"')"})
+                                            @Html.ValidationMessageFor(m => m.StrRequestDetails[i].CategoryCode, null, new { @class = "text-danger"})
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.StrRequestDetails[i].ItemCode, (IEnumerable<SelectListItem>)ViewBag.ListofItems,
+                                        new {@class="form-control", @id="lstItemId-"+i})
+                                            @Html.ValidationMessageFor(m => m.StrRequestDetails[i].ItemCode, null, new { @class = "text-danger"})
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.StrRequestDetails[i].ItemQuantity, new { @class="form-control", @type = "number", id="ItemQuantity",
+                                        onchange = $"VerifyQuantity(this, 'lstItemId-{i}')", data_quantity_id = $"quantity-{i}" })
+                                            @Html.ValidationMessageFor(m => m.StrRequestDetails[i].ItemQuantity, null, new { @class = "text-danger", id = "validationMessageId" })
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.StrRequestDetails[i].ItemRemark, new {@class="form-control"})
+                                            @Html.ValidationMessageFor(m => m.StrRequestDetails[i].ItemRemark, null, new { @class = "text-danger"})
+                                        </td>
+                                        <td><button type="button" class="btn btn-primary" id="btnremove-@i" onclick="DeleteItem(this);">Delete</button> </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label asp-for="@Model.ManagrAppr" class="control-label"></label>
+                            <select class="form-control" asp-for="@Model.ManagrAppr" asp-items="@ViewBag.ListofManagers">
+                                <option value="">---Select Manager---</option>
+                            </select>
+                            <span asp-validation-for="@Model.ManagrAppr" class="text-danger"></span>
+                        </div>
+
+                   </div>
+                    <div class="form-group mt-3">
+                        <input type="submit" value="Submit" id="submit" class="btn btn-primary btn-block w-100" />
+                    </div>
+
+
+                </div>
+
+            </div>
+        
+        </form>
+    </div>
+</div>
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+   
+}
+

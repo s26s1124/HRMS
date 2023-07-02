@@ -1,0 +1,100 @@
+﻿@model IEnumerable<HumanResource.Models.HRMS.StrReqMstr>
+
+@{
+    ViewData["Title"] = "Stror Request";
+
+}
+<div id="view-all">
+    <div class="card card-raised">
+        <div class="card-header bg-primary text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">Store Request</h2>
+                    <div class="card-subtitle">Details and history</div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-lg btn-text-white btn-icon" type="button"><i class="material-icons">download</i></button>
+                    <button class="btn btn-lg btn-text-white btn-icon" type="button"><i class="material-icons">print</i></button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <table class="table table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.ReqNo)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.EmpNo)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.ReqDate)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.ManagrAppr)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.ManagrApprDate)
+                        </th>
+                       
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.StrManagrApprDate)
+                        </th>
+
+                        <th scope="col">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReqNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReqDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ManagrAppr)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ManagrApprDate)
+                            </td>
+                           
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StrManagrApprDate)
+                            </td>
+                            <td>
+                                    <a onclick="showInPopup('@Url.Action("OrderAprroval","Store",new {id=item.ReqNo, status="Info"},Context.Request.Scheme)','Details')" class="btn btn-secondary text-white"><i class="material-icons-outlined">list_alt</i></a>
+
+                                @if (item.StrManagrApprFlag == 0 || item.StrManagrApprFlag == null)
+                                {
+                                    <a asp-controller="Store" asp-action="StorManagerAppr" asp-route-id="@item.ReqNo" class="btn btn-success text-white">Appove</a>
+
+                                }
+
+                             
+
+
+                                
+
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
