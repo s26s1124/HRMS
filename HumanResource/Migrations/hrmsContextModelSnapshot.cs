@@ -134,12 +134,10 @@ namespace HumanResource.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("NVARCHAR2(100)");
 
-                    b.Property<int?>("MaxQau")
-                        .IsRequired()
+                    b.Property<int>("MaxQau")
                         .HasColumnType("NUMBER(10)");
 
-                    b.Property<int?>("MinQau")
-                        .IsRequired()
+                    b.Property<int>("MinQau")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<int?>("NoToReq")
@@ -243,11 +241,11 @@ namespace HumanResource.Migrations
                     b.Property<DateTime?>("ItemDeliveryDate")
                         .HasColumnType("TIMESTAMP(7)");
 
-                    b.Property<int?>("ItemQuantity")
-                        .IsRequired()
+                    b.Property<int>("ItemQuantity")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<int?>("ItemQutReceived")
+                        .IsRequired()
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("ItemRemark")
@@ -265,6 +263,7 @@ namespace HumanResource.Migrations
                         .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<int?>("StrManagerAppr")
+                        .IsRequired()
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("StrManagerApprReson")

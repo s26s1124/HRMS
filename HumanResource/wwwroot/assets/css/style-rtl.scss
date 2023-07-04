@@ -1,0 +1,21 @@
+// @import "../assets/scss/layouts/layout_2/default/compile/_bootstrap.scss";
+// @import "../assets/scss/layouts/layout_2/default/compile/_bootstrap_limitless.scss";
+// @import "../assets/scss/layouts/layout_2/default/compile/_layout-rtl.scss";
+// @import "../assets/scss/layouts/layout_2/default/compile/_components.scss";
+// @import "../assets/scss/layouts/layout_2/default/compile/_colors.scss";
+
+@import "../../assets/scss-rtl/_config.scss";
+@import "../../assets/scss-rtl/layouts/layout_1/default/compile/bootstrap.scss";
+@import "../../assets/scss-rtl/layouts/layout_1/default/compile/bootstrap_limitless.scss";
+@import "../../assets/scss-rtl/layouts/layout_1/default/compile/layout.scss";
+@import "../../assets/scss-rtl/layouts/layout_1/default/compile/components.scss";
+@import "../../assets/scss-rtl/layouts/layout_1/default/compile/colors.scss"; 
+ 
+@if $direction == 'RTL' {
+  .btn{
+      background: #100 !important;
+  }		
+
+ 
+}
+ 

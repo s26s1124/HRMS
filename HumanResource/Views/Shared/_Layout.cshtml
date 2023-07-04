@@ -4,69 +4,324 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HumanResource</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HumanResource.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <!-- Load Material Icons from Google Fonts-->
-    <link href="~/css/material&icons.css" rel="stylesheet" />  
-    <!-- Load Simple DataTables Stylesheet-->
-    <link href="~/css/datatables.css" rel="stylesheet" />
-    <link href="~/css/all.min.css" rel="stylesheet" />
+
+
+<link href="~/assets/css/icons/icomoon/styles.min.css" rel="stylesheet" type="text/css">
+	
+	<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+	<link href="~/assets/css/icons/fontawesome/all.css" rel="stylesheet" type="text/css">
+
+
+        <link href="~/assets/css/style.css" rel="stylesheet" >
+
+
+        
+	<script src="~/assets/js/jquery.min.js"></script>
+
+	
+	<script src="~/assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="~/assets/js/plugins/loaders/blockui.min.js"></script>
+	<script src="~/assets/js/vue.min.js"></script>
+    <script src="~/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script src="~/assets/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+	<script src="~/assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+	<script src="~/assets/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js"></script>
+	<script src="~/assets/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js"></script>
+	<script src="~/assets/js/plugins/notifications/sweet_alert.min.js"></script>
+    <script src="~/assets/js/plugins/forms/selects/select2.min.js"></script>
     
+    <script src="~/assets/js/main/app.js"></script>
+
+<style>
+
+	.print-show{
+		display: none ;
+	}
+
+
+	:root {
+  --primary: #783d45;
+}
+	.text-end {
+  text-align: end;
+}
+
+.text-start {
+  text-align: start;
+}
+
+* :not(i,span,h4,h3,h2,h5,h1){
+	font-size: 0.96rem !important
+}
+</style>
+<style>
+
+.ui-autocomplete-loading {
+		    background:url("<?= $root ?>/assets/images/loading.gif") no-repeat right center ;
+		  }
+
+ [v-cloak] { display: none; }
+
+ input[type='number']{
+ 	direction: ltr;
+ 	text-align: center;
+ }
+
+ .select2-results__option[aria-selected=true] {
+    color: #fff;
+    background-color: #26a69a;
+}
+</style>
+
+
+
+<script type="text/javascript">
+    (function($) {
+	  $.fn.button = function(action) {
+	    if (action === 'loading') {
+	    	var loadingText="<i class='fas fa-spinner fa-spin'></i> <?= tr('processing') ?>";
+	      this.data('original-text', this.html()).html(loadingText).prop('disabled', true);
+	    }
+	    if (action === 'reset' && this.data('original-text')) {
+	      this.html(this.data('original-text')).prop('disabled', false);
+	    }
+	  };
+	}(jQuery));
+</script>
+
+
+
+
+	<style>
+		.btn-primary, .bg-primary{
+			background: var(--primary) !important;
+		}
+		.btn-secondary, .bg-secondary{
+			background: #C69383 !important;
+		}
+		.text-primary{
+			color: var(--primary) !important;
+		}
+		.btn-primary:hover {
+		    color: #fff;
+		    background-color: var(--primary);
+		}
+
+		
+		.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+			background: var(--primary) !important;
+		}
+
+
+	.card,.modal-content{
+			border-radius: 25px ;
+
+		}
+
+		.card-header:first-child,.modal-header {
+			border-top-right-radius: 25px !important;
+			border-top-left-radius: 25px !important;
+		}
+
+		.card-footer{
+			border-bottom-right-radius: 25px !important;
+			border-bottom-left-radius: 25px !important;
+		}
+
+.card.card-hover{
+	cursor: pointer;
+  
+		}
+		.card.card-hover:hover{
+		
+  transform: translateY(-4px);
+
+		}
+img.fit {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+	.btn.btn-sm{
+
+	    font-size: .9rem !important;
+	    padding:0.2125rem 0.75rem ;
+	    /*font-weight: bold;*/
+	}
+
+	.btn.btn-action.btn-info{
+		border-<?= trl("right","left") ?>: 2.5px solid ;
+	}
+
+	body{
+		background: #F7EFE4;
+	}
+	.card {
+		background: #FFFAF4;
+	}
+	.btn-light,.bg-light{
+			background: #F7EFE4;
+	}
+	.form-control{
+		background: #FFF8F5;
+		border-color: #D5B4AA;
+	}
+	.form-control:focus{
+		background: #F3CABC;
+		border-color: var(--primary) !important;
+	}
+	</style>
+<link href='~/assets/css/ElMessiri.css' rel='stylesheet'>
+<style>
+* {
+    font-family: 'ElMessiri';;
+}
+* :not(i,span,h4,h3,h2,h5,h1) {
+    font-size: 1.05rem !important;
+}
+</style>
+
 </head>
-  <body class="nav-fixed bg-light">
-        <!-- Top app bar navigation menu-->
-        <nav class="top-app-bar navbar navbar-expand navbar-dark bg-dark">
-            <div class="container-fluid px-4">
-                <!-- Drawer toggle button-->
-                <button class="btn btn-lg btn-icon order-1 order-lg-0" id="drawerToggle" href="javascript:void(0);"><i class="material-icons">menu</i></button>
-                  
-                <!-- Navbar items-->
-                <div class="d-flex align-items-center mx-3 me-lg-0">
-                    <!-- Navbar-->
-                    <!-- Navbar buttons-->
-                    <div class="d-flex">
-   
-                        <!-- User profile dropdown-->
-                        <div class="dropdown">
-                            <button class="btn btn-lg btn-icon dropdown-toggle" id="dropdownMenuProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-icons">person</i></button>
-                            <ul class="dropdown-menu dropdown-menu-end mt-3" aria-labelledby="dropdownMenuProfile">
-                                       <li><hr class="dropdown-divider" /></li>
-                                <li>
-                                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
-                                        <i class="material-icons leading-icon">logout</i>
-                                        <div class="me-3">Logout</div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Layout wrapper-->
-        <div id="layoutDrawer">
-            <!-- Layout navigation-->
-            <div id="layoutDrawer_nav">
-        @*@Html.RenderPartialAsync("NavigationMenu", "Account")*@
+  <body class="">
 
-            @await Component.InvokeAsync("NavMenu")
+  <!-- /header with logos -->
+<div class="navbar navbar-expand-md navbar-dark bg-primary" >
+
+  <!-- Header with logos -->
+  <div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center bg-primary" >
+APP
+  </div>
+  <!-- /header with logos -->
+
+
+  <!-- Mobile controls -->
+  <div class="d-flex flex-1 d-md-none">
+    <div class="navbar-brand mr-auto">
+      <a href="#" class="d-inline-block text-light">
+        <strong>APP</strong>
+      </a>
+    </div>	
+
+   <!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+      <i class="fas fa-angle-down"></i>
+    </button> -->
+
+
+     <button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+      <i class="icon-paragraph-justify3"></i>
+    </button> 
+
+  </div>
+  <!-- /mobile controls -->
+
+  <!-- Navbar content -->
+  <div class="collapse navbar-collapse d-md-flex justify-content-between"  id="navbar-mobile">
+
+    <ul class="navbar-nav">
+    </ul>
+      <ul class="navbar-nav">
+
+      <li class="nav-item">
+          <a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block ">
+            <i class="icon-paragraph-justify3"></i>
+          </a>
+        </li>
+ 
+        
+
+
+      </ul>
+  <ul class="navbar-nav">
+
+  
+  <li class="nav-item">
+    <a href="#" class="navbar-nav-link">Home</a>
+  </li>
+
+        <li class="nav-item nav-item dropdown ">
+          <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+            Link1
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right ">
+            <a href="#" class="dropdown-item"> Link</a>
+            <a href="#" class="dropdown-item"> Link</a>
+
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="navbar-nav-link">Link</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="navbar-nav-link">Link</a>
+        </li>
+
+     
+
+        <li class="nav-item">
+          <a href="#" class="navbar-nav-link">Logout</a>
+        </li>
+ 
+
+      <li class="nav-item nav-item dropdown ">
+          <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+            Arabic
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right ">
+            <a href="#" class="dropdown-item"> Arabic</a>
+            <a href="#" class="dropdown-item"> English</a>
+
+          </div>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Navbar content -->
+  <div class="collapse navbar-collapse d-md-flex "  id="navbar-mobile">
+
+
+  
+  </div>
+
+
+  <!-- /navbar content -->
+  
+</div>
+
+
+
+  <!-- /navbar content -->
+  
+	<div class="content-wrapper">
+
+    <!-- Page header -->
+
+<div class="page-content">
+
+    @*@Html.RenderPartialAsync("NavigationMenu", "Account")*@
+
+    @await Component.InvokeAsync("NavMenu")
+    <div class="content pt-0">
+
+
+        
+<div class="page-header print-hide">
+
+    <div class="page-header-content header-elements-inline">
+  <div class="page-title d-flex ">
+            <h4> Ttile</h4>
+  </div>
     </div>
-            <!-- Layout content-->
-            <div id="layoutDrawer_content">
-                <!-- Main page content-->
-                <main>
-                    <!-- Main dashboard content-->
-                <div class="container-xl">
-
-                    @RenderBody()
-
-                    </div>
-                </main>
-            </div>
-        </div>
+    </div>
+<div class="row">
+    <div class="col">@RenderBody()</div>
+</div>
+    </div>
+</div>
+</div>
 
     <!-- Modal --> @*tabindex="-5" aria-labelledby="exampleModalLabel" aria-hidden="true"*@
     <div class="modal fade" id="form-modal"  role="dialog" >
@@ -85,32 +340,10 @@
         </div>
     </div>
 
-    <div class="loaderbody" id="loaderbody">
-        <div class="loader"></div>
-    </div>
 
-
-    <!--  Load Chart.js via CDN-->
-    <script src="~/js/chart.js"></script>
-  
-    <script src="~/js/charts/chart-defaults.js"></script>
-    <!--  Load chart demos for this page-->
-    <script src="~/js/charts/demos/chart-pie-demo.js"></script>
-    <script src="~/js/charts/demos/dashboard-chart-bar-grouped-demo.js"></script>
-  
-    <!-- Load Simple DataTables Scripts-->
-    <script src="~/js/datatables/datatables-simple-demo.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-  
-
-    <script src="~/js/jquery-ui.js" ntegrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-            crossorigin="anonymous"></script>
-
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-  
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
+ <script src="~/js/site.js"></script>
+
 </body>
 </html>

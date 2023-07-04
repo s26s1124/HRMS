@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
 using Oracle.ManagedDataAccess.Client;
+using Elfie.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
 
 namespace HumanResource.Contexts;
 
@@ -25,9 +28,8 @@ public partial class hrmsContext : DbContext
     public virtual DbSet<StrRequestDetails> StrRequestDetails { get; set; }
     public virtual DbSet<VempDtl> VempDtls { get; set; }
     public virtual DbSet<MangerProc> GetMangers  { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseOracle("Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = orcl)));User Id=HR;Password=hrmsnew", m => m.UseOracleSQLCompatibility("11"));
+        => optionsBuilder.UseOracle("Data Source = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = orcl))); User Id = DRCH; Password=hrmsnew", m => m.UseOracleSQLCompatibility("11"));
 
     //protected override void OnModelCreating(ModelBuilder modelBuilder)
     //{
